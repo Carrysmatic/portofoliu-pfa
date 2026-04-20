@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Portofoliu Soluții Digitale PFA
 
-## Getting Started
+Acesta este un portofoliu modern construit cu **Next.js 15**, axat pe conversia clienților B2B și digitalizarea afacerilor locale. Spre deosebire de un portofoliu clasic de programator, acest proiect pune accent pe **rezultate de business, timp salvat și eficiență**, vorbind pe limba antreprenorului (abordarea "Nea Ionică").
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ Stack Tehnologic
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) (Configurație modernă prin `@import`)
+- **Iconițe:** [Lucide React](https://lucide.dev/)
+- **Limbaj:** TypeScript
+- **Interactivitate:** React Hooks (`useState`, `useEffect`) pentru simulări în timp real.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Funcționalități Implementate
 
-## Learn More
+### 1. Hero Section (Prima Impresie)
+- Design de tip "Dark Mode" cu accente de tip *Emerald* (Green).
+- Mesaj clar: Trecerea de la simplă prezență online la sisteme software complexe.
+- Layout optimizat pentru a ocupa exact 100% din înălțimea ecranului (Zero scroll bug).
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Services Section (Abordarea "Opt1")
+- Copywriting axat pe empatie și realism.
+- Împărțire clară între **Site-uri de Prezentare/eCommerce** și **Automatizări B2B**.
+- Explicații concrete despre sincronizarea datelor (ex: SmartBill, gestiune stocuri).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Laboratorul de Soluții (Split-Screen Demo)
+- **Dashboard Manager (Laptop):** Panou de control simulat care primește notificări.
+- **Simulator Client (Mobil):** Interfață interactivă de unde utilizatorul poate "cere parola WiFi" sau "raporta un defect".
+- **Real-time Sync:** Animații și loader-e care simulează latența și funcționarea unui sistem real.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. Layout & Design
+- **Navbar:** Efect de sticlă (`backdrop-blur`) și poziționare fixă.
+- **Responsive:** Adaptat pentru Desktop, Tabletă și Mobil.
+- **Tailwind v4 Setup:** Structură curată a fișierului `globals.css`.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📅 Roadmap: Ce urmează?
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Faza 1: Detalierea Proiectelor
+- [ ] **Dynamic Routing:** Crearea rutei `/proiecte/[id]` pentru pagini individuale.
+- [ ] **Case Studies:** Pagini dedicate pentru fiecare soluție (Guestbook, Mentenanță, etc.) cu explicații despre ROI (Return on Investment).
+
+### Faza 2: Lead Generation & Trust
+- [ ] **Secțiunea Despre PFA:** Un scurt istoric axat pe rezolvarea de probleme, nu doar pe scris cod.
+- [ ] **Formular de Contact:** Integrare cu *Resend* sau *Formspree* pentru primirea cererilor de ofertă pe e-mail.
+- [ ] **Secțiune Testimoniale:** Placeholder pentru feedback de la clienți.
+
+### Faza 3: Infrastructură & Lansare
+- [ ] **Bază de Date:** Conectarea "Laboratorului" la Supabase/Firebase pentru a salva cererile în mod real.
+- [ ] **SEO:** Optimizare metatag-uri și viteză de încărcare (Lighthouse score 90+).
+- [ ] **Domeniu & Deploy:** Publicarea pe Vercel.
+
+---
+
+## 🔧 Instalare și Rulare
+
+1. **Clonează repository-ul:**
+   ```bash
+   git clone [url-repository]
