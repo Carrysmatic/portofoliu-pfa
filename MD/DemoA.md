@@ -1,89 +1,76 @@
-# 🗺️ Plan Proiect: Digital Concierge & Smart Tourism Hub
+Digital Concierge & Smart Tourism Hub - Demo A+B (v3)
+Ultima actualizare: 21 Aprilie 2026
 
-Acest document servește drept foaie de parcurs pentru dezvoltarea platformei. Obiectivul este digitalizarea comunicării între pensiuni și turiști, oferind în același timp o platformă de promovare turistică regională (Parteneriate Primării & Restaurante), cu un nivel ridicat de accesibilitate prin tehnologia Scan & Tap (QR + NFC).
+Status: Prototip UI de înaltă fidelitate (Logic & Design Finalizat)
 
----
+Model de Business: White Glove Service (Serviciu Administrat Expert)
 
-## 🛠️ Stack Tehnic & Hardware
+✅ Pașii Realizați Până Acum
+🛠️ Infrastructură & State Management
+[X] Setup Proiect: Next.js 14, Tailwind CSS și Lucide Icons.
 
-| Strat | Tehnologie / Componentă | Rol |
-| :--- | :--- | :--- |
-| **Frontend** | `Next.js 14+ (App Router)` | Framework principal (SSR & Client-side) |
-| **Styling** | `Tailwind CSS` + `shadcn/ui` | Design rapid, responsiv și profesional |
-| **Bază de Date** | `Supabase (PostgreSQL)` | Stocare date, Autentificare și Real-time |
-| **Icons** | `Lucide React` | Iconițe vectoriale pentru interfață |
-| **State Management**| `TanStack Query` + `Zustand` | Caching date și stare globală simplificată |
-| **Notificări** | `Twilio API` (WhatsApp/SMS) | Trimiterea alertelor către staff-ul pensiunii |
-| **Generare QR** | `qrcode.react` | Generare coduri QR statice pentru print |
-| **Hardware** | `Tag-uri NFC (NTAG213 / NTAG215)` | Stickere programabile pentru acces instantaneu ("Tap") |
+[X] Logică de Store: Configurare Zustand (store.ts) pentru sincronizarea datelor în timp real între telefoanele de demo.
 
----
+[X] Motor de Alerte: Implementare sistem de trimitere cereri de la Turist la Staff.
 
-## 🚀 Fazele Dezvoltării
+📱 Interfața Turistului (TouristMobileView.tsx)
+[X] Ecran Home: Meniu principal cu acces la toate modulele (Servicii, Recomandări, Reguli, Trasee, Istoric).
 
-### Faza 1: Infrastructură & Modelare Date
-*Scop: Configurarea mediului și definirea relațiilor între entități.*
+[X] Modul WiFi: Afișare parolă (dinamică din store).
 
-1. **Setup Proiect:** Inițializare Next.js, Tailwind și integrare `shadcn/ui`.
-2. **Configurare Supabase:** Crearea tabelelor cu următoarea ierarhie:
-    - `Regiuni` (Placeholder: `[Regiune_Pilot]`) - Conține istoric, obiective și trasee oficiale.
-    - `Pensiuni` - Legate de o regiune. Conțin parola WiFi, reguli și contact WhatsApp.
-    - `Camere` - Legate de pensiune (ID simplu: 101, 102, etc.).
-    - `Parteneri_Locali` - Restaurante/Activități adăugate de managerul pensiunii sau admin.
-3. **Componente Software:** `Supabase CLI`, `PostgreSQL`.
+[X] Wizard Servicii Cameră: Flux complet în 3 pași (Selectare -> Notă Emerald Theme -> Succes).
 
-### Faza 2: Interfața Turistului (Mobile-First)
-*Scop: Experiență fluidă, fără logare, accesată prin scanare QR sau atingere NFC.*
+[X] Recomandări Locale: Sistem de tab-uri (Restaurante vs. Producători Locali) cu link-uri Google Maps.
 
-1. **Rute Dinamice:** Implementarea structurii `/[regiune]/[slug_pensiune]/[id_camera]`.
-2. **Ecran Principal:**
-    - **Modul WiFi:** Afișare parolă (sincronizată cu baza de date).
-    - **Modul Utilitare:** Butoane pentru cereri (Prosoape, Gunoi, Curățenie).
-    - **Modul Ghid Local:** Listă restaurante (cu oferte/coduri reducere).
-    - **Modul Primărie:** Secțiune dedicată pentru istoric, trasee și evenimente regionale.
-3. **Componente Software:** `Next.js Dynamic Routes`, `framer-motion` (pentru animații meniu).
+[X] Regulile Casei: Afișare hibridă (Grid "Quick Info" de 12 carduri + Ecran text complet).
 
-### Faza 3: Motorul de Alerte (WhatsApp/SMS)
-*Scop: Comunicare instantanee cu personalul fără dashboard-uri complicate.*
+[X] Ecrane B2G (Placeholders): Module dedicate pentru "Trasee & Activități" și "Istoric & Tradiții" pregătite pentru prezentări oficiale.
 
-1. **Webhook Alerte:** Crearea unui API Route în Next.js care primește cererea de la turist.
-2. **Integrare Twilio:** Trimiterea mesajului WhatsApp/SMS către numărul configurat de pensiune.
-    - *Format mesaj:* `🛎️ Alertă [Pensiune]: Camera [X] solicită [Serviciu].`
-3. **Protecție Anti-Spam:** Implementare `localStorage` throttling (limitare la o cerere la 10 minute per cameră).
-4. **Componente Software:** `Twilio SDK`, `Next.js API Routes`.
+🛠️ Interfața Managerului (ManagerMobileView.tsx)
+[X] Admin Layout: Design dark-mode profesional.
 
-### Faza 4: Management & Parteneriate (Admin Dashboards)
-*Scop: Unelte de editare pentru tine și pentru managerii de pensiuni.*
+[X] Gestiune WiFi: Editare rapidă a parolei.
 
-1. **Dashboard Manager Pensiune:**
-    - Editare Parolă WiFi & Regulile Casei.
-    - Gestionare listă proprie de restaurante parteneri (Adăugare poze/descrieri).
-    - Configurare număr recepție pentru alerte.
-2. **Dashboard Super-Admin (Tu):**
-    - Administrare Regiuni (Placeholder: `[Zona_Target]`).
-    - Managementul conținutului istoric/turistic pentru Primării.
-    - Analytics: Vizualizare număr de scanări/atingeri NFC și interacțiuni per regiune.
-3. **Componente Software:** `Supabase Auth`, `react-hook-form`, `zod`.
+[X] Gestiune Recomandări: Formular adăugare/ștergere (X roșu) locații externe.
 
-### Faza 5: Livrabile Fizice (QR, NFC & Print Design)
-*Scop: Pregătirea materialelor fizice premium ("La cheie") pentru camere.*
+[X] Gestiune Reguli: Control total asupra celor 12 reguli rapide și a regulamentului complet.
 
-1. **Generator Bulk QR:** Pagină de admin pentru generarea automată a vizualurilor QR pentru toate camerele unei pensiuni.
-2. **Programare Hardware (NFC):** - Achiziționarea stickerelor NFC ieftine (tip NTAG213).
-    - Scrierea URL-ului dinamic al camerei (ex: `demo.ro/brasov/pensiunea-bradul/204`) pe cipul NFC folosind o aplicație mobilă (ex: NFC Tools).
-3. **Asamblare & Print Styles:** - CSS dedicat (`Tailwind Print Classes`) pentru imprimarea graficii.
-    - Designul va include un Call-to-Action dublu: *"Scanează codul QR sau atinge telefonul aici"*.
-    - Aplicarea stickerului NFC pe spatele suportului de plexiglas (pentru a fi invizibil, dar funcțional).
+[X] Log Alerte: Monitorizare vizuală a cererilor recente venite de la camere.
 
----
+🛡️ Strategia de Securitate: "Cheia Invizibilă"
+Pentru a asigura integritatea sistemului și a preveni solicitările abuzive de la distanță:
 
-## 📍 Note de Implementare & Business
+URL-uri Securizate: Fiecare cameră utilizează un link unic de tip .../camera/101?auth=xyz789.
 
-- **Regiune Pilot:** `[De completat: Ex - Rasnov / Cazanele Dunarii]`
-- **Canal Notificări:** Default: `WhatsApp` (via Twilio). Alternativă: `SMS`.
-- **Model Business Propus:** - **Setup On-boarding:** Cost unic (hardware plexiglas, NFC, printare și configurare).
-    - **SaaS:** Abonament lunar pentru pensiuni (include alertele WhatsApp și spațiu de reclamă vândut către restaurante).
-    - **B2G:** Proiect de digitalizare turistică susținut de Primării (Fonduri UE/Buget Local).
+Activare Fizică: Codul auth_token este programat fizic de către tine (Super-Admin) pe tag-urile NFC și codurile QR.
 
----
-*Ultima actualizare: 21.04.2026*
+Validare la Sursă: Sistemul respinge orice solicitare dacă token-ul din URL nu coincide cu cel stocat în baza de date pentru camera respectivă.
+
+🚀 Modelul de Implementare: "White Glove Service"
+Spre deosebire de o soluție software standard, acest proiect se livrează ca un pachet premium administrat:
+
+Instalare Fizică: Tu te ocupi personal de programarea tag-urilor și instalarea suporturilor fizice în locație.
+
+Control asupra Echipamentului: Nu se lasă configurarea tehnică în mâna managerilor non-tehnici; tu garantezi funcționarea Tap-ului.
+
+Gestiune Subscription: Accesul managerului și validitatea codurilor QR sunt controlate prin dashboard-ul tău de Super-Admin.
+
+Poziționare Strategică: Soluție ideală pentru Primării și Proiecte Europene (External Digital Management regional).
+
+🛤️ Roadmap Viitor (Următorii Pași)
+1. Database & Persistence (Next Step)
+[ ] Configurare Supabase: Crearea tabelelor pensiuni, camere (cu auth_token) și locatii.
+
+[ ] Migrare Logică: Mutarea datelor din Zustand în tabele PostgreSQL cu politici RLS active.
+
+2. Autentificare & Super-Admin
+[ ] Auth Manager: Sistem de login prin email pentru managerii pensiunilor.
+
+[ ] Dashboard Super-Admin: Crearea panoului tău de control pentru a activa/suspenda pensiuni și a monitoriza numărul de QR-uri instalate.
+
+3. Integrare Live Hardware
+[ ] Twilio WhatsApp: Trecerea de la simulatorul vizual la notificări WhatsApp reale pe telefonul staff-ului.
+
+[ ] Programare NFC: Testarea bulk a tag-urilor NTAG213 cu link-urile securizate.
+
+Ultima actualizare: 21.04.2026
