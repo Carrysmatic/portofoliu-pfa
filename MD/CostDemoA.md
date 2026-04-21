@@ -1,59 +1,73 @@
-# 💰 Analiză și Planificare Costuri
+Strategia Financiară și de Scalare: Digital Concierge (2026)
+Această strategie acoperă tranziția de la prototip la un business SaaS (Software as a Service) matur, optimizat pentru operare de către un PFA/SRL în România.
 
-Acest document detaliază proiecția financiară pentru dezvoltarea, echiparea fizică și scalarea platformei, acoperind etapele de lansare, implementare fizică și mentenanță lunară.
+1. Faza de Lansare: MVP & Validare (0 - 5 Pensiuni)
+Obiectiv: Intrare pe piață cu investiție inițială minimă.
 
----
+Costuri Fixe Inițiale: ~50 - 70 RON / an pentru domeniul web.
 
-## A. Costuri de Bază (Creare MVP & Lansare)
-*Costuri necesare pentru a avea aplicația online, funcțională și gata de prezentat clienților.*
+Infrastructură Software: 0 RON prin utilizarea planurilor gratuite Vercel Hobby și Supabase Free.
 
-| Element | Descriere | Cost Estimat |
-| :--- | :--- | :--- |
-| **Domeniu Web** | Numele platformei (ex: `nume-platforma.ro`) | ~50 - 70 RON / an |
-| **Găzduire (Hosting)** | Vercel (Planul Hobby) pentru frontend. | 0 RON |
-| **Bază de Date** | Supabase (Planul Free, suportă până la 500 MB). | 0 RON |
-| **Număr Twilio** | Pentru testarea alertelor SMS/WhatsApp (Sandbox). | 0 RON |
-| **TOTAL LANSARE** | **Cost inițial minim pentru validarea ideii.** | **~50 RON** |
 
----
+Notă Tehnică: Planul Supabase Free impune o limită de 500 MB stocare și suspendă automat baza de date după o săptămână de inactivitate.
 
-## B. Costuri Fizice "La Cheie" (per Pensiune - Medie 15 camere)
-*Aceste costuri sunt acoperite din taxa de "Setup" percepută la semnarea contractului (Preț recomandat pentru client: 400 - 500 RON).*
+2. Model de Tarifare pentru Clienți (Venituri)
+A. Taxă de Setup (Plată unică per locație)
+Preț recomandat: 250 RON (fix) + 20 RON / cameră.
 
-| Material per Cameră | Detalii | Cost Unitar | Cost Total (15 cam) |
-| :--- | :--- | :--- | :--- |
-| **Suport Plexiglas** | Format A6 (Tip T sau L), transparent, rezistent. | ~10.00 RON | 150.00 RON |
-| **Sticker NFC** | Tag-uri NTAG213 (achiziție la rolă). | ~1.50 RON | 22.50 RON |
-| **Print Grafică** | Print color pe carton de calitate medie/groasă. | ~1.00 RON | 15.00 RON |
-| **TOTAL HARDWARE**| **Cost brut pentru a livra materialele.** | **~12.50 RON/cam** | **~187.50 RON** |
+Cost Materiale per Cameră: ~12.50 RON (include suport Plexiglas, sticker NFC și print grafică).
 
-> **Notă de Cashflow:** Încasezi ~450 RON (Taxă Setup) - Cheltui ~190 RON (Materiale fizice) = **Profit imediat: ~260 RON**. Acest profit acoperă timpul de implementare software și deplasarea pentru instalare.
+Profit Setup (Exemplu 15 camere): Încasat 550 RON - Cost materiale ~187.50 RON = ~362.50 RON profit imediat.
 
----
+Rol: Acoperă timpul alocat pentru instalarea fizică și configurarea tabelului rooms cu auth_tokens unici.
 
-## C. Costuri Operaționale Lunare (Abonament SaaS)
-*Proiecție bazată pe un abonament recurent perceput clientului de 99 RON/lună/pensiune.*
+B. Abonament Lunar SaaS (Venit recurent)
+Preț recomandat: 249 RON (bază) + 10 RON / cameră / lună.
 
-### Scenariul 1: Start (1 - 5 Pensiuni)
-* **Servere (Vercel + Supabase):** 0 RON (Încadrare în limitele gratuite).
-* **API Mesaje (Twilio):** ~17 RON / lună / pensiune (estimare la 100 de alerte trimise lunar).
-* **Bilanț estimat (5 pensiuni):** Venituri (495 RON) - Costuri Twilio (85 RON) = **Profit: 410 RON/lună.**
+Pensiune Mică (10 camere): 349 RON / lună.
 
-### Scenariul 2: Creștere (10 - 20 Pensiuni)
-* **Hosting (Vercel Pro):** ~100 RON ($20) / lună.
-* **Bază de date (Supabase Pro):** ~125 RON ($25) / lună.
-* **API Mesaje (Twilio):** ~340 RON / lună (cumulat pt. 20 pensiuni).
-* **Bilanț estimat (20 pensiuni):** Venituri (1.980 RON) - Costuri Servere & API (565 RON) = **Profit: 1.415 RON/lună.**
+Pensiune Medie (25 camere): 499 RON / lună.
 
-### Scenariul 3: Scalare (50 Pensiuni)
-* **Servere:** Limitate la costul cumulat de ~225 RON / lună (capacitatea planurilor Pro susține acest volum).
-* **API Mesaje:** ~850 RON / lună.
-* **Bilanț estimat (50 pensiuni):** Venituri (4.950 RON) - Costuri (1.075 RON) = **Profit: 3.875 RON/lună.**
+Pensiune Mare (50 camere): 749 RON / lună.
 
----
+3. Costuri Operative și Proiecție de Profit (Scenariul: 50 Pensiuni)
 
-## 💡 Concluzii și Politici de Business
+Estimare pentru o medie de 20 camere per pensiune, deservind ~50.000 de utilizatori activi lunar.
 
-1. **Risc financiar minim la lansare:** Se investește doar în domeniul web. Infrastructura software gratuită permite testarea de teren fără presiune financiară.
-2. **Hardware "Just in Time":** Echipamentele fizice (suporturi plexiglas, rolă NFC) se achiziționează exclusiv după semnarea contractului și încasarea taxei de setup.
-3. **Clauză "Fair Use" (Protecția profitului):** Pentru a evita reducerea marjei de profit din cauza volumului neașteptat de mesaje Twilio, contractul SaaS va include o clauză de limitare (Ex: *Abonamentul de bază include maximum 150 de alerte lunare. Depășirile vor fi facturate suplimentar cu 0.20 RON/alertă*).
+Cheltuieli Lunare Estimate (Infrastructură Cloud):
+
+Supabase Pro & Medii de Lucru: ~$75 (pentru izolare medii Dev/Staging/Prod).
+
+
+Putere de Calcul (Compute Medium): ~$60 (4 GB RAM pentru interogări complexe).
+
+Alerte WhatsApp (Twilio): ~850 RON (estimat la ~100 alerte/lună per locație).
+
+
+Email Tranzacțional (Resend Pro): ~$20 (pentru Magic Links și notificări sigure).
+
+
+Trafic Date (Egress): ~$45 (taxare peste cota de 250 GB inclusă).
+
+Total Cheltuieli: ~1.860 RON / lună.
+
+Bilanț Financiar:
+Venit Recurent Total: ~22.450 RON / lună.
+
+
+Profit Brut Lunar (Solo PFA): ~20.590 RON.
+
+Profit Brut Anual: ~247.000 RON.
+
+4. Clauze Strategice și Garanții (Managementul Riscului)
+Clauză Fair Use (WhatsApp): Abonamentul include 150 de alerte/lună; depășirile se taxează cu 0.20 RON/alertă.
+
+
+Limită Edge Functions: Primele 50.000 de invocări incluse; ulterior se aplică tarifele platformei (aprox. 2$ per milion).
+
+Securitate Row Level Security (RLS): Toate datele sunt izolate la nivel de bază de date pentru a preveni accesul neautorizat între pensiuni.
+
+Kill-Switch Automat: În caz de neplată, statusul pensiunii în tabelul properties devine suspended, blocând instantaneu accesul turiștilor la servicii.
+
+
+Conformitate GDPR: Orice prelucrare a datelor cetățenilor români trebuie să respecte Legea 190/2018, sub sancțiunea unor amenzi de până la 4% din cifra de afaceri globală.

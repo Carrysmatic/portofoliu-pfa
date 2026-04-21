@@ -1,8 +1,7 @@
-Digital Concierge & Smart Tourism Hub - Demo A+B (v3)
+Digital Concierge & Smart Tourism Hub - Demo A+B (v4)
 Ultima actualizare: 21 Aprilie 2026
 
 Status: Prototip UI de înaltă fidelitate (Logic & Design Finalizat)
-
 Model de Business: White Glove Service (Serviciu Administrat Expert)
 
 ✅ Pașii Realizați Până Acum
@@ -14,63 +13,56 @@ Model de Business: White Glove Service (Serviciu Administrat Expert)
 [X] Motor de Alerte: Implementare sistem de trimitere cereri de la Turist la Staff.
 
 📱 Interfața Turistului (TouristMobileView.tsx)
-[X] Ecran Home: Meniu principal cu acces la toate modulele (Servicii, Recomandări, Reguli, Trasee, Istoric).
+[X] Ecran Home: Meniu principal cu acces la toate modulele.
 
-[X] Modul WiFi: Afișare parolă (dinamică din store).
+[X] Modul WiFi: Afișare parolă dinamică.
 
-[X] Wizard Servicii Cameră: Flux complet în 3 pași (Selectare -> Notă Emerald Theme -> Succes).
+[X] Wizard Servicii Cameră: Flux complet în 3 pași (Selectare -> Notă -> Succes).
 
-[X] Recomandări Locale: Sistem de tab-uri (Restaurante vs. Producători Locali) cu link-uri Google Maps.
+[X] Recomandări Locale: Sistem de tab-uri cu link-uri Google Maps.
 
-[X] Regulile Casei: Afișare hibridă (Grid "Quick Info" de 12 carduri + Ecran text complet).
+[X] Regulile Casei: Afișare hibridă (Grid 12 carduri + Ecran text).
 
-[X] Ecrane B2G (Placeholders): Module dedicate pentru "Trasee & Activități" și "Istoric & Tradiții" pregătite pentru prezentări oficiale.
+[X] Ecrane B2G (Placeholders): Module dedicate pentru "Trasee & Activități" și "Istoric & Tradiții".
 
 🛠️ Interfața Managerului (ManagerMobileView.tsx)
 [X] Admin Layout: Design dark-mode profesional.
 
-[X] Gestiune WiFi: Editare rapidă a parolei.
+[X] Gestiune WiFi & Conținut: Editare rapidă parolă, adăugare/ștergere recomandări și reguli.
 
-[X] Gestiune Recomandări: Formular adăugare/ștergere (X roșu) locații externe.
-
-[X] Gestiune Reguli: Control total asupra celor 12 reguli rapide și a regulamentului complet.
-
-[X] Log Alerte: Monitorizare vizuală a cererilor recente venite de la camere.
+[X] Log Alerte: Monitorizare vizuală a cererilor recente.
 
 🛡️ Strategia de Securitate: "Cheia Invizibilă"
-Pentru a asigura integritatea sistemului și a preveni solicitările abuzive de la distanță:
+URL-uri Securizate: Link unic per cameră (.../camera/101?auth=xyz789).
 
-URL-uri Securizate: Fiecare cameră utilizează un link unic de tip .../camera/101?auth=xyz789.
+Activare Fizică: Codul auth_token programat de tine pe suporturile fizice (QR).
 
-Activare Fizică: Codul auth_token este programat fizic de către tine (Super-Admin) pe tag-urile NFC și codurile QR.
-
-Validare la Sursă: Sistemul respinge orice solicitare dacă token-ul din URL nu coincide cu cel stocat în baza de date pentru camera respectivă.
+Validare la Sursă: Respingerea solicitărilor dacă token-ul nu este valid în baza de date.
 
 🚀 Modelul de Implementare: "White Glove Service"
-Spre deosebire de o soluție software standard, acest proiect se livrează ca un pachet premium administrat:
+Instalare Fizică: Te ocupi personal de plasarea suporturilor cu coduri QR în locație.
 
-Instalare Fizică: Tu te ocupi personal de programarea tag-urilor și instalarea suporturilor fizice în locație.
+Control Total: Tu garantezi funcționarea "Tap-ului", eliminând nevoia ca managerul să fie tehnic.
 
-Control asupra Echipamentului: Nu se lasă configurarea tehnică în mâna managerilor non-tehnici; tu garantezi funcționarea Tap-ului.
-
-Gestiune Subscription: Accesul managerului și validitatea codurilor QR sunt controlate prin dashboard-ul tău de Super-Admin.
-
-Poziționare Strategică: Soluție ideală pentru Primării și Proiecte Europene (External Digital Management regional).
+Management Centralizat: Accesul este controlat prin dashboard-ul tău de Super-Admin.
 
 🛤️ Roadmap Viitor (Următorii Pași)
-1. Database & Persistence (Next Step)
+1. Database & Persistence (URMĂTORUL PAS)
 [ ] Configurare Supabase: Crearea tabelelor pensiuni, camere (cu auth_token) și locatii.
 
-[ ] Migrare Logică: Mutarea datelor din Zustand în tabele PostgreSQL cu politici RLS active.
+[ ] Migrare Logică: Mutarea datelor din Zustand în tabele PostgreSQL cu politici RLS (Row Level Security).
 
 2. Autentificare & Super-Admin
-[ ] Auth Manager: Sistem de login prin email pentru managerii pensiunilor.
+[ ] Auth Manager: Sistem de login (Magic Link sau Email/Parolă) pentru manageri.
 
-[ ] Dashboard Super-Admin: Crearea panoului tău de control pentru a activa/suspenda pensiuni și a monitoriza numărul de QR-uri instalate.
+[ ] Dashboard Super-Admin: Panou de control pentru activarea/suspendarea pensiunilor.
 
-3. Integrare Live Hardware
-[ ] Twilio WhatsApp: Trecerea de la simulatorul vizual la notificări WhatsApp reale pe telefonul staff-ului.
+[ ] Modul Analytics (Nou): Monitorizarea traficului pe module (ex: care trasee sunt cele mai accesate) pentru raportări B2G.
 
-[ ] Programare NFC: Testarea bulk a tag-urilor NTAG213 cu link-urile securizate.
+3. Integrare Live & Notificări
+[ ] Twilio WhatsApp: Trecerea la notificări reale pe telefonul staff-ului când un turist face o cerere.
 
-Ultima actualizare: 21.04.2026
+[ ] Generare QR Bulk: Script pentru generarea automată a URL-urilor securizate pentru imprimare.
+
+4. Scalare (Viitor)
+[ ] Integrare NFC: Implementarea tag-urilor NTAG213 pentru o experiență "premium tap" odată cu creșterea volumului de clienți.
