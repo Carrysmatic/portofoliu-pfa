@@ -54,7 +54,10 @@ export default function TouristMobileView() {
             <div className="px-6 py-6 space-y-3">
                 <div className="bg-slate-900 text-white p-4 rounded-xl flex items-center gap-3 mb-4">
                     <Wifi size={16} className="text-emerald-400" />
-                    <span className="text-[10px] font-black tracking-widest uppercase">WIFI: {wifiPassword}</span>
+                    {/* Doar eticheta e uppercase, parola rămâne normală */}
+                    <span className="text-[10px] font-black tracking-widest">
+                        <span className="uppercase opacity-50 mr-1">WIFI:</span> {wifiPassword}
+                    </span>
                 </div>
 
                 {/* 1. Servicii - Legat corect */}
