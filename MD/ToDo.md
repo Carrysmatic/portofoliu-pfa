@@ -1,39 +1,68 @@
 # 📝 Plan de Lucru - Laboratorul de Soluții
 
-## 🧪 Core Lab Features (Prioritate Maximă)
-- [ ] **Creare Pagina `/proiecte`:** Interfața principală a Laboratorului.
-- [ ] **Dashboard Manager (Laptop):** Construirea panoului de control care primește datele.
-- [ ] **Integrare QR Code:** Generarea de coduri scanabile pentru testarea live pe telefonul real al clientului.
-- [ ] **Logica de Sincronizare:** Implementarea comunicării real-time între Simulatorul de Telefon și Dashboard-ul de Manager.
+## 🚀 PROIECTUL 1: Smart Concierge Hub (Focus Actual)
+*Unirea Demo A (Guestbook) cu Demo B (Alerter) într-un produs comercial.*
 
-## 📱 Implementare Demo-uri Specifice
-- [ ] **Demo A (Guestbook):** Logica de Check-out și notificări WiFi.
-- [ ] **Demo B (Alerter):** Sistem de push notifications pentru curățenie/mentenanță.
-- [ ] **Demo C (Ticketing):** Interfață Kanban pentru gestionarea defectelor.
-- [ ] **Demo D (Feedback):** Grafice interactive (Charts) care se actualizează la fiecare recenzie primită.
-- [ ] **Demo E (vCard):** Generare automată de fișier `.vcf`.
-- [ ] **Demo F (Micro-WMS):** Actualizare instantanee a tabelelor de inventar.
+- [ ] **Infrastructură:** Integrare Supabase pentru managementul pensiunilor și regiunilor.
+- [ ] **Real-time Sync:** Sincronizarea parolei WiFi și a regulilor între Admin și Client.
+- [ ] **Canal Alerte:** Implementare Webhook pentru trimiterea cererilor (prosoape, curățenie) către staff (WhatsApp/SMS).
+- [ ] **Componenta Turistică:** Modul de Ghid Local (Restaurante/Trasee) editabil de tine.
+- [ ] **Livrabile Fizice:** Generare QR și programare stickere NFC pentru camere.
 
+## 🧪 Laborator Demo-uri Viitoare (Module Independente)
+*Acestea vor fi dezvoltate ulterior pentru a demonstra diverse competențe tehnice.*
+
+### C. Mentenanță Active (Kanban System)
+- [ ] Dashboard tip Kanban (Coloane: Nou, În lucru, Rezolvat).
+- [ ] Drag-and-Drop Logic pentru tichete.
+
+### D. Feedback & Analytics
+- [ ] Implementare grafice Pie Charts care se actualizează live.
+- [ ] Logica de "Sentiment Analysis" pentru feedback text.
+
+### E. Digital vCard
+- [ ] Implementare logică generare fișier `.vcf`.
+- [ ] Testare scanare QR pentru salvare automată contact.
+
+### F. Gestiune Stocuri
+- [ ] Scanner simulat și butoane de + și - pentru inventar.
+- [ ] Alerte vizuale pentru stoc redus (highlight roșu).
+
+## 🛠️ General Tech Stack
+- [ ] **State Provider:** Supabase Realtime pentru sincronizare instantanee.
+- [ ] **Sound Effects:** `use-sound` pentru notificările managerului.
+- [ ] **QR Engine:** `qrcode.react` configurat pentru printare.
 
 ## Plan de Viitor Detaliat: Laborator Demo-uri
 
-### A. Digital Guestbook & Smart Check-out
-- [ ] **Interfață Client (Telefon):**
-	- Ecran cu butoane mari: „Parola WiFi”, „Regulile Casei”, „Check-out”.
-- [ ] **Interfață Manager (Laptop):**
-	- Panou de setări pentru schimbarea parolei WiFi în timp real.
-- [ ] **Magia Live:**
-	- [ ] Implementare State Sync: Când managerul schimbă parola pe laptop, textul se actualizează pe telefonul simulat fără refresh.
-	- [ ] Logica Check-out: La apăsarea butonului pe telefon, în dashboard-ul managerului apare o alertă vizuală și sonoră „Camera 204 e liberă pentru curățenie”.
+### A+B. Smart Concierge Hub
+## 🧪 Core Features (Prioritate Maximă / MVP)
+- [ ] **Configurare Supabase:** Crearea tabelelor `Regiuni`, `Pensiuni`, `Recomandari_Locale`.
+- [ ] **Sistem Rute Dinamice (Next.js):** Construirea linkurilor de tip `/[regiune]/[pensiune]/[camera]`.
+- [ ] **Integrare Twilio (WhatsApp/SMS):** Setarea webhook-ului pentru a trimite alertele din camere către telefoanele staff-ului.
+- [ ] **Panou Admin Simplificat:** Creare login via Magic Link pentru managerii de pensiuni.
 
-### B. Alerter Mentenanță & Curățenie
-- [ ] **Interfață Client (Telefon):**
-	- Formular ultra-rapid cu 3 opțiuni: „Lipsă consumabile”, „Murdărie”, „Defecțiune”.
-- [ ] **Interfață Manager (Laptop):**
-	- Listă de alerte active cu cronometru (de cât timp e alerta activă).
-- [ ] **Magia Live:**
-	- [ ] Integrare Notificări: Folosirea unui serviciu (sau simulare) de Push Notification.
-	- [ ] Demo Flow: Vizitatorul apasă „Lipsă Săpun” pe telefon -> Laptopul „țipă” și afișează locația exactă a incidentului.
+## 📱 Interfața Turistului (Fără Logare)
+- [ ] **UI Meniu Principal:** Butoane curate pentru WiFi, Curățenie, Ghid Local.
+- [ ] **Modul WiFi & Reguli:** Fetching date din Supabase pe baza URL-ului.
+- [ ] **Modul Solicitări:** Formular rapid ("Adu prosoape", "Defecțiune") cu blocare anti-spam (localStorage 10 min).
+- [ ] **Modul Recomandări (Monetizare):** Afișarea restaurantelor partenere specifice pensiunii, cu oferte/reduceri.
+- [ ] **Modul Ghid Local (Primărie):** Afișarea istoricului și traseelor pe baza `Regiunii`.
+
+## ⚙️ Logica Operațională (Înlocuiește vechiul Dashboard Laptop)
+- [ ] **Trimitere Alertă:** Turistul apasă butonul -> API Next.js -> Twilio -> Mesaj WhatsApp pe telefonul recepției.
+- [ ] **Formular Manager (Telefon/Laptop):** 3 tab-uri simple (Setări WiFi, Setări Număr Contact, Adaugă Restaurant Partener).
+
+## 🖨️ Livrabile Fizice (Premium)
+- [ ] **Generator QR Bulk:** Script care generează QR coduri statice (`qrcode.react`) pentru toate camerele unei pensiuni odată.
+- [ ] **Print CSS (`@media print`):** Formatare pentru printare directă pe suporturi A6.
+- [ ] **NFC Tags:** Achiziționare și programare stickere NTAG213 pentru funcția de "Tap to open".
+
+## 🗑️ Funcții Eliminate (Pentru Focus pe MVP)
+- [x] Sistem Kanban (Ticketing complex).
+- [x] Sincronizare WebSocket pentru parola WiFi (Trecut pe caching simplu).
+- [x] Generare Cărți de vizită (.vcf).
+- [x] Gestiune stocuri și scaner.
 
 ### C. Ticketing & Mentenanță Active
 - [ ] **Interfață Client (Telefon):**

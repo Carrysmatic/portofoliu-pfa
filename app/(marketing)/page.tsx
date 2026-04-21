@@ -80,11 +80,7 @@ export default function MarketingPage() {
                   </button>
                 </div>
 
-                <div className="mt-auto pt-4">
-                  <button className="w-full py-4 bg-emerald-500 text-white rounded-xl font-black shadow-lg shadow-emerald-200 flex items-center justify-center gap-3 text-sm">
-                    <LogOut className="w-5 h-5" /> CHECK-OUT
-                  </button>
-                </div>
+
               </div>
             </div>
           </div>

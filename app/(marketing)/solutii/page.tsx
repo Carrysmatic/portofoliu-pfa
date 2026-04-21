@@ -15,12 +15,16 @@ import Link from "next/link";
 
 export default function SolutiiPage() {
     const pachete = [
-        { id: "A", t: "Digital Guestbook", d: "Pentru Airbnb/Hoteluri. Parola WiFi, reguli și Check-out instant.", icon: <QrCode className="w-5 h-5 text-brand-primary" /> },
-        { id: "B", t: "Alerter Curățenie", d: "Notificări instantanee pe telefon pentru lipsă consumabile sau murdărie.", icon: <BellRing className="w-5 h-5 text-emerald-400" /> },
-        { id: "C", t: "Mentenanță Active", d: "QR pe echipamente. Raportare defect cu poză și dashboard Kanban.", icon: <Kanban className="w-5 h-5 text-blue-400" /> },
-        { id: "D", t: "Feedback Privat", d: "Interceptează clienții nemulțumiți înainte să lase recenzii rele pe Google.", icon: <Star className="w-5 h-5 text-yellow-400" /> },
-        { id: "E", t: "Digital vCard", d: "Carte de vizită digitală. Salvează contactul direct în agendă.", icon: <Contact2 className="w-5 h-5 text-purple-400" /> },
-        { id: "F", t: "Gestiune la Raft", d: "Scanner simulat pe telefon. Scazi/adaugi stocuri scanând raftul.", icon: <PackageSearch className="w-5 h-5 text-orange-400" /> }
+        {
+            id: "A+B",
+            t: "Smart Concierge Hub",
+            d: "Sistem integrat pentru pensiuni: WiFi, reguli, info turistice și alerte WhatsApp pentru staff.",
+            icon: <QrCode className="w-5 h-5 text-brand-primary" />
+        },
+        { id: "C", t: "Mentenanță Active", d: "Sistem de ticketing Kanban pentru defecte raportate prin QR.", icon: <Kanban className="w-5 h-5 text-blue-400" /> },
+        { id: "D", t: "Terminal Feedback", d: "Analiză în timp real a satisfacției clienților cu grafice live.", icon: <Star className="w-5 h-5 text-yellow-400" /> },
+        { id: "E", t: "Digital vCard", d: "Generare automată de contacte direct în agenda telefonului.", icon: <Contact2 className="w-5 h-5 text-purple-400" /> },
+        { id: "F", t: "Micro-WMS Stocuri", d: "Gestiune rapidă a stocurilor folosind camera telefonului ca scanner.", icon: <PackageSearch className="w-5 h-5 text-orange-400" /> }
     ];
 
     return (
