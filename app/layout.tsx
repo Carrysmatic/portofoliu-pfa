@@ -1,45 +1,43 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google"; // Font modern, standard pentru Next.js
 import "./globals.css";
 import Navbar from "./components/Navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// Configurăm fontul Inter pentru un aspect curat, profesional
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Nume Prenume | Soluții Digitalizare B2B & Fullstack Dev",
-  description: "Dezvoltare software personalizată pentru afaceri locale. Automatizări HoReCa, sisteme QR și soluții SaaS pentru optimizarea proceselor.",
-  icons: {
-    icon: "/favicon.ico", // Asigură-te că ai fișierul în public/
-  },
+  title: "NumePrenume PFA | Soluții Digitale & Automatizări",
+  description: "Digitalizarea afacerilor locale prin site-uri moderne și sisteme software care salvează timp.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="ro" className="scroll-smooth">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950 text-slate-50`}
-      >
+      <body className={`${inter.className} bg-slate-950 text-slate-200 antialiased selection:bg-brand-primary/30 selection:text-brand-primary`}>
+
+        {/* Navbar-ul rămâne fix sus pe toate paginile */}
         <Navbar />
-        <div className="relative min-h-screen overflow-x-hidden">
-          {/* Background Decorativ Subtil */}
-          <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
 
-          <main className="pt-20">{children}</main>
+        {/* Main conține paginile propriu-zise. 
+          'pt-20' este critic pentru a împinge conținutul sub Navbar-ul fix de 80px (h-20).
+        */}
+        <main className="min-h-screen pt-20">
+          {children}
+        </main>
 
-          {/* Aici vom introduce ulterior Footer-ul */}
-        </div>
+        {/* Footer simplu pentru a închide vizual paginile */}
+        <footer className="py-12 border-t border-white/5 bg-slate-950 text-center">
+          <div className="max-w-7xl mx-auto px-6">
+            <p className="text-slate-600 text-sm">
+              © {new Date().getFullYear()} NumePrenume PFA. Soluții digitale construite cu Next.js 15.
+            </p>
+          </div>
+        </footer>
       </body>
     </html>
   );

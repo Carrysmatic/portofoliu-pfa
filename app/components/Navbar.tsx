@@ -1,34 +1,53 @@
-"use client";
-import Link from 'next/link';
+"use client"; // Adăugăm asta pentru a permite interactivitate pe viitor (ex: meniu mobil)
+import Link from "next/link";
+import { Laptop, MessageSquare } from "lucide-react";
 
 const Navbar = () => {
     return (
-        <nav className="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-900">
-            <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-                {/* LOGO */}
-                <Link href="/" className="text-xl font-bold tracking-tighter flex items-center gap-2">
-                    <div className="w-8 h-8 bg-brand-primary rounded-lg flex items-center justify-center text-white">
-                        <span className="text-sm">N</span>
+        <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-slate-950/50 backdrop-blur-xl">
+            <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+
+                {/* Logo - Duce la pagina principală (/) */}
+                <Link href="/" className="flex items-center gap-2 group">
+                    <div className="w-10 h-10 bg-brand-primary rounded-xl flex items-center justify-center text-slate-950 font-black shadow-[0_0_15px_rgba(16,185,129,0.4)] group-hover:scale-110 transition-transform">
+                        N
                     </div>
-                    <span className="hidden sm:block">NumePrenume<span className="text-brand-primary text-sm">.pfa</span></span>
+                    <span className="text-white font-bold text-xl tracking-tight">
+                        NumePrenume<span className="text-brand-primary">.pfa</span>
+                    </span>
                 </Link>
 
-                {/* Meniu Desktop */}
-                <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-                    <Link href="#solutii" className="hover:text-brand-primary transition-colors">Soluții Live</Link>
-                    <Link href="#servicii" className="hover:text-brand-primary transition-colors">Servicii</Link>
-                    <Link href="#despre" className="hover:text-brand-primary transition-colors">Despre PFA</Link>
-                </div>
-
-                {/* Call to Action */}
-                <div>
+                {/* Meniu Principal - Link-uri către toate paginile noi */}
+                <div className="hidden md:flex items-center gap-8">
                     <Link
-                        href="#contact"
-                        className="bg-brand-primary hover:bg-brand-primary/90 text-slate-950 px-5 py-2 rounded-full text-sm font-bold transition-all"
+                        href="/proiecte"
+                        className="text-slate-400 hover:text-brand-primary font-medium transition-colors flex items-center gap-2"
                     >
-                        Contact
+                        <Laptop className="w-4 h-4" />
+                        Soluții Live
+                    </Link>
+                    <Link
+                        href="/solutii"
+                        className="text-slate-400 hover:text-white font-medium transition-colors"
+                    >
+                        Cum te ajut
+                    </Link>
+                    <Link
+                        href="/faq"
+                        className="text-slate-400 hover:text-white font-medium transition-colors"
+                    >
+                        Întrebări & Prețuri
                     </Link>
                 </div>
+
+                {/* Buton Contact - Accentuat pentru conversie */}
+                <Link
+                    href="/contact"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-brand-primary hover:bg-brand-primary/90 text-slate-950 font-bold rounded-lg transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-brand-primary/20"
+                >
+                    <MessageSquare className="w-4 h-4" />
+                    Contact
+                </Link>
             </div>
         </nav>
     );
