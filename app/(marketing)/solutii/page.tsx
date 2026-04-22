@@ -1,15 +1,13 @@
 import {
     QrCode,
-    BellRing,
     Kanban,
     Star,
     Contact2,
     PackageSearch,
-    CheckCircle2,
     ArrowRight,
-    Wifi,
-    Smartphone,
-    Server
+    ScanLine,
+    Loader2,
+    Lock
 } from "lucide-react";
 import Link from "next/link";
 
@@ -17,143 +15,171 @@ export default function SolutiiPage() {
     const pachete = [
         {
             id: "A+B",
-            t: "Smart Concierge Hub",
-            d: "Sistem integrat pentru pensiuni: WiFi, reguli, info turistice și alerte WhatsApp pentru staff.",
-            icon: <QrCode className="w-5 h-5 text-brand-primary" />
+            t: "Info Hub & Recepție QR",
+            d: "Sistem integrat pentru pensiuni. Transformă experiența turistului oferindu-i instant acces la WiFi, regulile casei, informații turistice și un canal direct de alerte WhatsApp pentru staff.",
+            icon: <QrCode className="w-8 h-8 text-brand-primary" />,
+            link: "/proiecte/Infohub", // RUTA ACTUALIZATĂ
+            status: "active"
         },
-        { id: "C", t: "Mentenanță Active", d: "Sistem de ticketing Kanban pentru defecte raportate prin QR.", icon: <Kanban className="w-5 h-5 text-blue-400" /> },
-        { id: "D", t: "Terminal Feedback", d: "Analiză în timp real a satisfacției clienților cu grafice live.", icon: <Star className="w-5 h-5 text-yellow-400" /> },
-        { id: "E", t: "Digital vCard", d: "Generare automată de contacte direct în agenda telefonului.", icon: <Contact2 className="w-5 h-5 text-purple-400" /> },
-        { id: "F", t: "Micro-WMS Stocuri", d: "Gestiune rapidă a stocurilor folosind camera telefonului ca scanner.", icon: <PackageSearch className="w-5 h-5 text-orange-400" /> }
+        {
+            id: "C",
+            t: "Mentenanță Active",
+            d: "Sistem de ticketing Kanban pentru defecte raportate prin QR. Simplifică procesul de reparații și ține evidența intervențiilor echipei tale tehnice.",
+            icon: <Kanban className="w-8 h-8 text-blue-400" />,
+            status: "development"
+        },
+        {
+            id: "D",
+            t: "Terminal Feedback",
+            d: "Analiză în timp real a satisfacției clienților cu grafice live. Află ce cred clienții tăi chiar înainte ca aceștia să părăsească locația.",
+            icon: <Star className="w-8 h-8 text-yellow-400" />,
+            status: "development"
+        },
+        {
+            id: "E",
+            t: "Digital vCard",
+            d: "Generare automată de contacte direct în agenda telefonului. Fără cărți de vizită tipărite, doar o scanare rapidă pentru a salva datele firmei tale.",
+            icon: <Contact2 className="w-8 h-8 text-purple-400" />,
+            status: "development"
+        },
+        {
+            id: "F",
+            t: "Micro-WMS Stocuri",
+            d: "Gestiune rapidă a stocurilor folosind camera telefonului ca scanner. Adaugă sau scade produse din inventar cu o simplă scanare de cod de bare.",
+            icon: <PackageSearch className="w-8 h-8 text-orange-400" />,
+            status: "development"
+        }
     ];
 
     return (
         <div className="flex flex-col gap-24 py-20">
-            {/* --- HEADER: Textul principal pe tot rândul --- */}
-            <section className="max-w-7xl mx-auto px-6 text-center w-full space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 text-brand-primary font-semibold text-xs border border-brand-primary/20 uppercase tracking-wider">
+            {/* --- HEADER --- */}
+            <section className="max-w-5xl mx-auto px-6 text-center w-full space-y-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-primary/10 text-brand-primary font-bold text-sm border border-brand-primary/20 uppercase tracking-widest">
                     Arhitectură de Soluții
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
-                    Alege unealta care îți <br />
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
+                    Alege unealta care îți <br className="hidden md:block" />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-emerald-400">
                         salvează timpul.
                     </span>
                 </h1>
-                <p className="text-lg lg:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                    Un singur hub digital, zeci de soluții de automatizare. Toate aplicațiile de mai jos funcționează pe bază de abonament lunar.
+                <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                    Un singur hub digital, zeci de soluții de automatizare. Toate aplicațiile funcționează pe bază de abonament lunar și nu necesită instalare pe telefoanele clienților.
                 </p>
             </section>
 
-            {/* --- CORE: Telefonul Centralizat cu Săgeți --- */}
-            <section className="relative w-full max-w-[1400px] mx-auto px-6">
+            {/* --- LISTA DE PROIECTE --- */}
+            <section className="max-w-6xl mx-auto px-6 w-full space-y-16">
+                {pachete.map((p, index) => {
+                    const isActive = p.status === "active";
 
-                {/* Glow effect general în spatele structurii */}
-                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-96 bg-brand-primary/10 blur-[150px] opacity-60"></div>
+                    return (
+                        <div
+                            key={p.id}
+                            className={`flex flex-col lg:flex-row items-center gap-12 p-8 lg:p-16 rounded-[3rem] border transition-all duration-500
+                            ${isActive
+                                    ? "bg-slate-900/60 border-slate-700 hover:border-brand-primary/50 shadow-2xl"
+                                    : "bg-slate-900/20 border-slate-800/50"}`}
+                        >
 
-                {/* Layout Grid: Telefon Central, 3 proiecte stânga, 3 proiecte dreapta */}
-                <div className="grid lg:grid-cols-11 gap-10 items-center relative z-10">
-
-                    {/* Partea Stângă (col-span-4): Primele 3 proiecte */}
-                    <div className="lg:col-span-4 space-y-8 flex flex-col items-end">
-                        {pachete.slice(0, 3).map((p) => (
-                            <SolutionCard key={p.id} p={p} alignment="right" />
-                        ))}
-                    </div>
-
-                    {/* Centru (col-span-3): Telefonul Simulator */}
-                    <div className="lg:col-span-3 flex justify-center relative">
-                        <div className="relative w-[280px] h-[580px] border-[10px] border-slate-900 bg-slate-950 rounded-[3rem] shadow-2xl ring-1 ring-white/10 overflow-hidden">
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-slate-900 rounded-b-2xl z-20"></div>
-                            <div className="h-full w-full bg-white flex flex-col p-5 pt-10 gap-2 overflow-y-auto">
-                                {/* Interfața Clientului - Guestbook Demo */}
-                                <div className="flex flex-col items-center text-center gap-1 mb-2">
-                                    <div className="w-10 h-10 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary">
-                                        <Wifi className="w-5 h-5" />
-                                    </div>
-                                    <h2 className="text-slate-900 text-sm font-black leading-tight">Pensiunea "Liniștea"</h2>
-                                    <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Camera 204</p>
+                            {/* STANGA: Detalii Proiect */}
+                            <div className="flex-1 space-y-6 text-center lg:text-left">
+                                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto lg:mx-0 shadow-inner
+                                    ${isActive ? "bg-slate-950 shadow-brand-primary/20" : "bg-slate-900"}`}>
+                                    {p.icon}
                                 </div>
-                                {/* Butoanele Meniului de Client */}
-                                <div className="space-y-1.5 flex-1">
-                                    {pachete.map(p => (
-                                        <button key={p.id} className="w-full py-2 bg-slate-50 text-slate-700 rounded-lg font-semibold border border-slate-200 flex items-center px-3 gap-2 text-xs">
-                                            {p.icon} Vezi {p.t}
-                                        </button>
-                                    ))}
+
+                                <h2 className={`text-3xl lg:text-4xl font-bold tracking-tight ${isActive ? "text-white" : "text-slate-300"}`}>
+                                    {p.t}
+                                </h2>
+
+                                <p className="text-lg text-slate-400 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                                    {p.d}
+                                </p>
+
+                                <div className="pt-4">
+                                    {isActive ? (
+                                        <Link href={p.link!} className="inline-flex items-center gap-3 px-8 py-4 bg-brand-primary text-slate-950 font-black rounded-xl hover:scale-105 transition-all shadow-lg shadow-brand-primary/20 group">
+                                            DESCHIDE DEMO LIVE <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                        </Link>
+                                    ) : (
+                                        <div className="inline-flex items-center gap-3 px-8 py-4 bg-slate-800 text-slate-400 font-bold rounded-xl cursor-not-allowed">
+                                            <Loader2 className="w-5 h-5 animate-spin" /> ÎN DEZVOLTARE
+                                        </div>
+                                    )}
                                 </div>
-                                <p className="text-[9px] text-slate-400 text-center font-medium">Hub Activ 24/7 de NumePrenume.pfa</p>
                             </div>
+
+                            {/* DREAPTA: Zona QR Code */}
+                            <div className="w-full lg:w-auto flex justify-center shrink-0">
+                                <div className={`w-72 h-72 rounded-[2.5rem] p-4 relative shadow-2xl transition-all duration-500
+                                    ${isActive ? "bg-slate-800 border-2 border-brand-primary/30" : "bg-slate-900 border border-slate-800"}`}>
+
+                                    {/* Lumini fundal QR (doar activ) */}
+                                    {isActive && (
+                                        <>
+                                            <div className="absolute -top-4 -right-4 w-20 h-20 bg-brand-primary/30 rounded-full blur-2xl pointer-events-none"></div>
+                                            <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-blue-500/20 rounded-full blur-2xl pointer-events-none"></div>
+                                        </>
+                                    )}
+
+                                    {/* Suprafața Albă a QR-ului */}
+                                    <div className="w-full h-full bg-white rounded-2xl relative overflow-hidden flex flex-col items-center justify-center border-4 border-slate-800">
+
+                                        {isActive ? (
+                                            <>
+                                                {/* Pentru proiectul activ */}
+                                                <ScanLine className="w-12 h-12 text-slate-300 mb-2" />
+                                                <span className="text-slate-400 font-black text-sm uppercase tracking-widest text-center px-4">
+                                                    QR CODE<br />AICI
+                                                </span>
+                                                {/* Efect de scanare */}
+                                                <div className="absolute inset-0 pointer-events-none">
+                                                    <div className="w-full h-1 bg-emerald-500/50 shadow-[0_0_15px_#10b981] animate-[scan_3s_ease-in-out_infinite]"></div>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <>
+                                                {/* Pentru proiectele în dezvoltare (Efect Blurred/Locked) */}
+                                                <div className="absolute inset-0 backdrop-blur-md bg-white/60 z-10 flex flex-col items-center justify-center text-slate-500">
+                                                    <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mb-2 shadow-sm border border-slate-200">
+                                                        <Lock className="w-5 h-5" />
+                                                    </div>
+                                                    <span className="font-bold text-xs uppercase tracking-widest">Funcție Blocată</span>
+                                                </div>
+                                                {/* QR Fals dedesubt pt estetică */}
+                                                <QrCode className="w-32 h-32 text-slate-200 opacity-50" />
+                                            </>
+                                        )}
+
+                                    </div>
+
+                                    {isActive && (
+                                        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-widest bg-brand-primary text-slate-950 font-black px-4 py-1.5 rounded-full shadow-lg whitespace-nowrap">
+                                            Gata de scanat
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
                         </div>
-
-                        {/* Vizualizare Săgeți / Linii de legătură (Emerald) */}
-                        <ArrowConnections pachete={pachete} />
-                    </div>
-
-                    {/* Partea Dreaptă (col-span-4): Ultimele 3 proiecte */}
-                    <div className="lg:col-span-4 space-y-8 flex flex-col items-start">
-                        {pachete.slice(3).map((p) => (
-                            <SolutionCard key={p.id} p={p} alignment="left" />
-                        ))}
-                    </div>
-                </div>
+                    );
+                })}
             </section>
 
-            {/* --- CTA FINAL: कस्टम Soluție --- */}
-            <section className="max-w-4xl mx-auto px-6 w-full text-center">
-                <div className="bg-slate-900/40 border border-slate-800 p-10 lg:p-16 rounded-[3rem] flex flex-col lg:flex-row items-center gap-10 shadow-xl">
-                    <div className="flex-1 space-y-4 text-left">
-                        <h2 className="text-3xl font-bold text-white">Ai nevoie de ceva specific?</h2>
-                        <p className="text-slate-400">Dacă procesul tău nu se regăsește mai sus, îl putem construi de la zero special pentru afacerea ta.</p>
+            {/* --- CTA FINAL --- */}
+            <section className="max-w-6xl mx-auto px-6 w-full text-center">
+                <div className="bg-slate-900/40 border border-slate-800 p-12 lg:p-20 rounded-[3rem] flex flex-col lg:flex-row items-center justify-between gap-10 shadow-2xl">
+                    <div className="flex-1 space-y-4 text-center lg:text-left">
+                        <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">Ai nevoie de ceva specific?</h2>
+                        <p className="text-lg text-slate-400 max-w-xl">Dacă procesul tău nu se regăsește mai sus, îl putem construi de la zero special pentru fluxul tău de lucru.</p>
                     </div>
-                    <Link href="/contact" className="px-10 py-5 bg-brand-primary text-slate-950 font-black rounded-xl hover:scale-105 transition-all shadow-xl group">
-                        CERE O SOLUȚIE CUSTOM <ArrowRight className="w-5 h-5 inline-block group-hover:translate-x-1 transition-transform" />
+                    <Link href="/contact" className="px-10 py-5 bg-brand-primary text-slate-950 font-black rounded-2xl hover:scale-105 transition-all shadow-xl group whitespace-nowrap text-lg">
+                        CERE O SOLUȚIE CUSTOM <ArrowRight className="w-6 h-6 inline-block group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </div>
             </section>
         </div>
     );
 }
-
-// Sub-componentă pentru cardurile de soluții
-interface SolutionCardProps {
-    p: { t: string; d: string; icon: React.ReactNode };
-    alignment: "left" | "right";
-}
-
-const SolutionCard = ({ p, alignment }: SolutionCardProps) => (
-    <div className={`p-6 rounded-[2rem] bg-slate-900/40 border border-slate-800 hover:border-brand-primary/30 transition-all flex flex-col gap-4 group w-full max-w-sm relative ${alignment === "right" ? "items-end text-right" : "items-start text-left"}`}>
-        <div className={`w-12 h-12 bg-slate-950 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform ${alignment === "right" ? "ml-auto" : ""}`}>
-            {p.icon}
-        </div>
-        <h3 className="text-lg font-bold text-white">{p.t}</h3>
-        <p className="text-xs text-slate-500 leading-relaxed max-w-[300px]">{p.d}</p>
-        <Link href="/proiecte" className={`flex items-center gap-2 text-[10px] font-bold text-brand-primary uppercase tracking-widest group-hover:gap-3 transition-all ${alignment === "right" ? "ml-auto" : ""}`}>
-            Testează Demo <ArrowRight className="w-4 h-4" />
-        </Link>
-    </div>
-);
-
-// Sub-componentă pentru conexiunile vizuale (Săgeți/Linii)
-const ArrowConnections = ({ pachete }: { pachete: { id: string }[] }) => (
-    <div className="absolute inset-0 z-0 pointer-events-none hidden lg:block">
-        {/* Adăugăm linii subțiri, neon emerald, care pornesc de la telefon către centrul fiecărui card lateral */}
-        {/* Asta necesită calcul de poziționare CSS sau SVG. Pentru simplitate, folosim linii de test visual */}
-        <div className="absolute top-1/4 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-brand-primary/20 to-transparent"></div>
-        <div className="absolute top-1/2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-brand-primary/20 to-transparent"></div>
-        <div className="absolute top-3/4 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-brand-primary/20 to-transparent"></div>
-
-        {/* SVG Arrow paths ar fi ideale aici */}
-        <svg width="100%" height="100%" viewBox="0 0 400 600" fill="none" className="opacity-40">
-            {/* Săgeți vizuale de test visual */}
-            {/* Linii spre stânga visual */}
-            <path d="M140 180 H-100" stroke="#10b981" strokeWidth="1" strokeDasharray="4 4" />
-            <path d="M140 300 H-100" stroke="#10b981" strokeWidth="1" strokeDasharray="4 4" />
-            <path d="M140 420 H-100" stroke="#10b981" strokeWidth="1" strokeDasharray="4 4" />
-            {/* Linii spre dreapta visual */}
-            <path d="M260 180 H500" stroke="#10b981" strokeWidth="1" strokeDasharray="4 4" />
-            <path d="M260 300 H500" stroke="#10b981" strokeWidth="1" strokeDasharray="4 4" />
-            <path d="M260 420 H500" stroke="#10b981" strokeWidth="1" strokeDasharray="4 4" />
-        </svg>
-    </div>
-);

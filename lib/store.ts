@@ -11,26 +11,32 @@ export interface Location {
 export interface QuickRule {
     id: string;
     title: string;
-    value: string; // Aici vom pune 'short_desc' din Supabase
+    value: string;
     iconName?: string;
 }
 
+// --- NOU: Definim exact ce conține o Alertă ---
+export interface Alert {
+    id: string;
+    room: string;
+    type: string;
+    note: string;
+    time: string;
+    status: 'pending' | 'in_progress' | 'completed'; // Adăugăm statusul!
+}
+
 interface AppState {
-    // --- CONTEXT SESIUNE (NOU) ---
     propertyId: string | null;
     propertyName: string;
     roomNumber: string | null;
     roomId: string | null;
 
-    // --- DATE PENTRU INTERFAȚĂ ---
     wifiPassword: string;
     fullRulesText: string;
     quickRules: QuickRule[];
     locations: Location[];
-    alerts: any[];
+    alerts: Alert[]; // Folosim noua interfață
 
-    // --- ACȚIUNEA PRINCIPALĂ DE INIȚIALIZARE (NOU) ---
-    // Asta va fi apelată imediat ce descifrăm "Cheia Invizibilă" din URL
     setInitData: (data: {
         propertyId: string;
         propertyName: string;
@@ -42,9 +48,10 @@ interface AppState {
         locations: Location[];
     }) => void;
 
-    // --- ACȚIUNI EXISTENTE (Pentru funcționarea interfeței) ---
-    addAlert: (alert: any) => void;
-    // ... păstrăm restul acțiunilor de care ai nevoie în aplicație
+    // --- ALERTE ---
+    addAlert: (alert: Alert) => void;
+    updateAlertStatus: (id: string, status: 'pending' | 'in_progress' | 'completed') => void; // NOU: Funcția de actualizare
+
     setWifiPassword: (password: string) => void;
     addLocation: (loc: Location) => void;
     deleteLocation: (id: string) => void;
@@ -54,9 +61,8 @@ interface AppState {
 }
 
 export const useStore = create<AppState>((set) => ({
-    // 1. PORNIM CU STAREA GOALĂ (Așteptăm datele reale)
     propertyId: null,
-    propertyName: "Se încarcă...", // Un text provizoriu bun pentru Header
+    propertyName: "Se încarcă...",
     roomNumber: null,
     roomId: null,
     wifiPassword: "...",
@@ -65,7 +71,6 @@ export const useStore = create<AppState>((set) => ({
     locations: [],
     alerts: [],
 
-    // 2. INJECTĂM TOATE DATELE DEODATĂ
     setInitData: (data) => set({
         propertyId: data.propertyId,
         propertyName: data.propertyName,
@@ -77,9 +82,18 @@ export const useStore = create<AppState>((set) => ({
         locations: data.locations
     }),
 
-    // 3. LOGICA EXISTENTĂ
-    setWifiPassword: (password) => set({ wifiPassword: password }),
+    // --- LOGICA PENTRU ALERTE ---
     addAlert: (alert) => set((state) => ({ alerts: [alert, ...state.alerts] })),
+
+    // NOU: Caută alerta după ID și îi schimbă doar statusul
+    updateAlertStatus: (id, status) => set((state) => ({
+        alerts: state.alerts.map(alert =>
+            alert.id === id ? { ...alert, status } : alert
+        )
+    })),
+
+    // --- RESTUL FUNCȚIILOR ---
+    setWifiPassword: (password) => set({ wifiPassword: password }),
     addLocation: (loc) => set((state) => ({ locations: [...state.locations, loc] })),
     deleteLocation: (id) => set((state) => ({
         locations: state.locations.filter(loc => loc.id !== id)
