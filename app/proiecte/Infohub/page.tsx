@@ -92,7 +92,7 @@ export default function ProiectePage() {
                                 <div className="w-full aspect-square bg-white rounded-2xl p-4 shadow-inner border-4 border-slate-800 mx-auto relative group cursor-pointer overflow-hidden">
                                     {/* Folosim un API extern pentru a genera QR-ul pe baza link-ului tau */}
                                     <img
-                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('https://localhost:3000/scan?auth=TOKEN_SECRET_123')}`}
+                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('https://portofoliu-pfa.vercel.app/scan?auth=TOKEN_SECRET_123')}`}
                                         alt="Scan QR Demo"
                                         className="w-full h-full object-contain transition-all group-hover:scale-105"
                                     />
