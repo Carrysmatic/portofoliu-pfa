@@ -89,19 +89,24 @@ export default function ProiectePage() {
                                 </div>
 
                                 {/* QR Uriaș Generat Dinamic */}
-                                <div className="w-full aspect-square bg-white rounded-2xl p-4 shadow-inner border-4 border-slate-800 mx-auto relative group cursor-pointer overflow-hidden">
-                                    {/* Folosim un API extern pentru a genera QR-ul pe baza link-ului tau */}
+                                {/* În app/proiecte/receptie-qr/page.tsx, în coloana 1 (Turist) */}
+                                <div className="w-full aspect-square bg-white rounded-2xl p-4 shadow-inner border-4 border-slate-800 mx-auto relative group overflow-hidden">
                                     <img
                                         src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('https://portofoliu-pfa.vercel.app/scan?auth=TOKEN_SECRET_123')}`}
                                         alt="Scan QR Demo"
                                         className="w-full h-full object-contain transition-all group-hover:scale-105"
                                     />
 
-                                    {/* Colțuri decorative QR (păstrate pentru estetică) */}
+                                    {/* Laserul de scanare */}
+                                    <div className="absolute inset-0 pointer-events-none rounded-2xl overflow-hidden">
+                                        <div className="w-full h-1 bg-emerald-500/50 shadow-[0_0_15px_#10b981] animate-[scan_3s_ease-in-out_infinite]"></div>
+                                    </div>
+
+                                    {/* Colțurile decorative */}
                                     <div className="absolute top-2 left-2 w-4 h-4 border-t-4 border-l-4 border-emerald-500 rounded-tl-lg pointer-events-none"></div>
                                     <div className="absolute top-2 right-2 w-4 h-4 border-t-4 border-r-4 border-emerald-500 rounded-tr-lg pointer-events-none"></div>
                                     <div className="absolute bottom-2 left-2 w-4 h-4 border-b-4 border-l-4 border-emerald-500 rounded-bl-lg pointer-events-none"></div>
-                                    <div className="absolute bottom-2 right-2 w-4 h-4 border-b-4 border-r-4 border-emerald-500 rounded-br-lg pointer-events-none"></div>
+                                    <div className="absolute bottom-2 right-2 w-4 h-4 border-b-4 border-r-4 border-emerald-500 rounded-tr-lg pointer-events-none"></div>
                                 </div>
 
                                 <div className="pt-4 border-t border-slate-800">
