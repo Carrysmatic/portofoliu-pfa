@@ -25,17 +25,20 @@ const Hero = () => {
 
                     {/* Call-to-action buttons */}
                     <div className="flex flex-col sm:flex-row items-center gap-4 mt-4 justify-center lg:justify-start">
+                        {/* LINK ACTUALIZAT: DUCE LA INFO HUB */}
                         <Link
-                            href="#demo"
+                            href="/proiecte/Infohub"
                             className="w-full sm:w-auto px-8 py-4 bg-brand-primary hover:bg-brand-primary/90 text-slate-950 font-bold rounded-lg transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(16,185,129,0.3)] text-center"
                         >
                             Testează Demo-ul (Live)
                         </Link>
+
+                        {/* LINK ACTUALIZAT: DUCE LA PAGINA DE SOLUȚII */}
                         <Link
-                            href="#servicii"
+                            href="/solutii"
                             className="w-full sm:w-auto px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-lg transition-all border border-slate-700 text-center"
                         >
-                            Vezi cum te pot ajuta
+                            Vezi toate soluțiile
                         </Link>
                     </div>
                 </div>
@@ -54,5 +57,4 @@ const Hero = () => {
     );
 };
 
-// Hero component: Displays the main landing section with a call-to-action and a placeholder for interactive content.
 export default Hero;
