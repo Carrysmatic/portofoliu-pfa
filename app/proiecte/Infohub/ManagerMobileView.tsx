@@ -4,7 +4,7 @@ import { useStore } from "@/lib/store";
 import { supabase } from "@/lib/supabase";
 import {
     Settings, Wifi, Info, ChevronDown, ChevronUp,
-    MapPin, Trash2, Plus, Clock, CheckCircle2, AlertCircle, Save, Star, X, HelpCircle, FileText
+    MapPin, Trash2, Plus, Clock, CheckCircle2, AlertCircle, Save, Star, X, HelpCircle, FileText, Share2, Copy
 } from "lucide-react";
 
 export default function ManagerMobileView() {
@@ -17,13 +17,11 @@ export default function ManagerMobileView() {
         fullRulesText, setFullRules
     } = useStore();
 
-    // --- STATES PENTRU MENIURI ---
     const [isWifiOpen, setIsWifiOpen] = useState(false);
     const [isLocOpen, setIsLocOpen] = useState(false);
     const [isRegOpen, setIsRegOpen] = useState(false);
     const [isSavingWifi, setIsSavingWifi] = useState(false);
 
-    // --- STATES PENTRU FORMULARUL DE LOCAȚII ---
     const [newName, setNewName] = useState("");
     const [newCat, setNewCat] = useState<'RESTAURANT' | 'PRODUCATOR'>('RESTAURANT');
     const [newNote, setNewNote] = useState("");
@@ -32,23 +30,19 @@ export default function ManagerMobileView() {
     const [isSavingLoc, setIsSavingLoc] = useState(false);
     const [showMapsTutorial, setShowMapsTutorial] = useState(false);
 
-    // --- STATES PENTRU REGULI ---
     const [newRuleTitle, setNewRuleTitle] = useState("");
     const [newRuleValue, setNewRuleValue] = useState("");
     const [isSavingRule, setIsSavingRule] = useState(false);
 
-    // Regulament Complet
     const [showFullRulesModal, setShowFullRulesModal] = useState(false);
     const [localFullRules, setLocalFullRules] = useState("");
     const [isSavingFullRules, setIsSavingFullRules] = useState(false);
 
-    // Sincronizăm textul local când deschidem modalul
     useEffect(() => {
         setLocalFullRules(fullRulesText);
     }, [fullRulesText]);
 
 
-    // --- FUNCȚII WIFI ---
     const handleSaveWifi = async () => {
         if (!propertyId) return;
         setIsSavingWifi(true);
@@ -57,7 +51,6 @@ export default function ManagerMobileView() {
         alert("Parola WiFi a fost salvată!");
     };
 
-    // --- FUNCȚII LOCAȚII ---
     const handleSaveLocation = async () => {
         if (!propertyId || !newName) return alert("Numele este obligatoriu!");
         setIsSavingLoc(true);
@@ -91,7 +84,8 @@ export default function ManagerMobileView() {
                 setNewName(""); setNewCat("RESTAURANT"); setNewNote(""); setNewLink(""); setNewIsSponsored(false);
             }
         } catch (error) {
-            console.error(error); alert("Eroare la salvare.");
+            console.error("Eroare detaliată Supabase:", error);
+            alert("Eroare la salvare. Verificați consola (F12) pentru detalii.");
         }
         setIsSavingLoc(false);
     };
@@ -101,7 +95,6 @@ export default function ManagerMobileView() {
         deleteLocation(recId);
     };
 
-    // --- FUNCȚII REGULI ---
     const handleSaveQuickRule = async () => {
         if (!propertyId || !newRuleTitle || !newRuleValue) return alert("Completați ambele câmpuri!");
         setIsSavingRule(true);
@@ -110,28 +103,18 @@ export default function ManagerMobileView() {
             const { data, error } = await supabase
                 .from('house_rules')
                 .insert([{
-                    property_id: propertyId,
-                    title: newRuleTitle,
-                    short_desc: newRuleValue,
-                    icon_name: 'Info', // Hardcodat pentru demo, se poate face dinamic ulterior
-                    is_quick_info: true,
-                    order_index: quickRules.length + 1
+                    property_id: propertyId, title: newRuleTitle, short_desc: newRuleValue,
+                    icon_name: 'Info', is_quick_info: true, order_index: quickRules.length + 1
                 }])
                 .select()
                 .single();
 
             if (error) throw error;
 
-            addQuickRule({
-                id: data.id,
-                title: data.title,
-                value: data.short_desc,
-                iconName: data.icon_name
-            });
-
+            addQuickRule({ id: data.id, title: data.title, value: data.short_desc, iconName: data.icon_name });
             setNewRuleTitle(""); setNewRuleValue("");
         } catch (error) {
-            console.error(error); alert("Eroare la salvarea regulii.");
+            console.error("Eroare detaliată Supabase:", error); alert("Eroare la salvarea regulii.");
         }
         setIsSavingRule(false);
     };
@@ -146,13 +129,11 @@ export default function ManagerMobileView() {
         setIsSavingFullRules(true);
 
         try {
-            // Trebuie să preluăm config-ul actual ca să nu-l suprascriem pe tot
             const { data: propData } = await supabase.from('properties').select('config').eq('id', propertyId).single();
             const currentConfig = propData?.config || {};
             const newConfig = { ...currentConfig, full_rules: localFullRules };
 
             await supabase.from('properties').update({ config: newConfig }).eq('id', propertyId);
-
             setFullRules(localFullRules);
             setShowFullRulesModal(false);
         } catch (error) {
@@ -252,29 +233,19 @@ export default function ManagerMobileView() {
                     </button>
                     {isRegOpen && (
                         <div className="p-4 pt-0 space-y-4">
-
-                            {/* BUTON REGULAMENT COMPLET */}
-                            <button
-                                onClick={() => setShowFullRulesModal(true)}
-                                className="w-full bg-blue-600/20 border border-blue-500/50 text-blue-400 font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-blue-600/30 transition-colors"
-                            >
+                            <button onClick={() => setShowFullRulesModal(true)} className="w-full bg-blue-600/20 border border-blue-500/50 text-blue-400 font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-blue-600/30 transition-colors">
                                 <FileText size={14} /> Editează Regulament Complet
                             </button>
-
-                            {/* FORMULAR ADĂUGARE REGULĂ RAPIDĂ */}
                             {quickRules.length < 12 && (
                                 <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
                                     <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Adaugă Regulă Rapidă</h4>
                                     <input type="text" placeholder="Titlu (ex: Fără petreceri)" value={newRuleTitle} onChange={e => setNewRuleTitle(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white outline-none focus:border-emerald-500" />
                                     <input type="text" placeholder="Descriere (ex: După ora 22:00)" value={newRuleValue} onChange={e => setNewRuleValue(e.target.value)} className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white outline-none focus:border-emerald-500" />
-
                                     <button onClick={handleSaveQuickRule} disabled={isSavingRule} className="w-full bg-slate-800 text-white text-xs font-bold py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-slate-700 active:scale-95 transition-all">
                                         {isSavingRule ? "Se salvează..." : <><Plus size={14} /> Adaugă Regulă</>}
                                     </button>
                                 </div>
                             )}
-
-                            {/* LISTA REGULI EXISTENTE */}
                             <div className="space-y-2 pt-2 border-t border-slate-800">
                                 {quickRules.map(rule => (
                                     <div key={rule.id} className="bg-slate-950 border border-slate-800 p-3 rounded-xl flex justify-between items-center">
@@ -329,69 +300,65 @@ export default function ManagerMobileView() {
                 <div className="absolute inset-0 bg-slate-950 z-50 p-6 flex flex-col animate-in slide-in-from-bottom-8 duration-300">
                     <div className="flex items-center justify-between mb-6 shrink-0">
                         <h3 className="text-sm font-black text-blue-400 uppercase tracking-widest">Regulament Complet</h3>
-                        <button onClick={() => setShowFullRulesModal(false)} className="p-2 bg-slate-900 rounded-full text-slate-400 hover:text-white transition-colors">
-                            <X size={18} />
-                        </button>
+                        <button onClick={() => setShowFullRulesModal(false)} className="p-2 bg-slate-900 rounded-full text-slate-400 hover:text-white transition-colors"><X size={18} /></button>
                     </div>
-
                     <div className="flex-1 flex flex-col min-h-0 pb-4">
                         <p className="text-xs text-slate-400 mb-4 shrink-0">Acesta este textul lung pe care turiștii îl vor citi când apasă "Citește tot regulamentul". Poți folosi Enter pentru paragrafe noi.</p>
-
-                        <textarea
-                            value={localFullRules}
-                            onChange={e => setLocalFullRules(e.target.value)}
-                            className="flex-1 w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-sm text-slate-300 outline-none focus:border-blue-500 resize-none no-scrollbar"
-                            placeholder="Introduceți politicile de check-in, check-out, animale de companie, daune, etc..."
-                        />
+                        <textarea value={localFullRules} onChange={e => setLocalFullRules(e.target.value)} className="flex-1 w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-sm text-slate-300 outline-none focus:border-blue-500 resize-none no-scrollbar" placeholder="Introduceți politicile..." />
                     </div>
-
                     <div className="pt-4 mt-auto shrink-0 border-t border-slate-800">
-                        <button
-                            onClick={handleSaveFullRules}
-                            disabled={isSavingFullRules}
-                            className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl text-xs uppercase tracking-widest transition-colors active:scale-95 flex items-center justify-center gap-2"
-                        >
-                            {isSavingFullRules ? "Se salvează..." : <><Save size={16} /> Salvează Regulamentul</>}
+                        <button onClick={handleSaveFullRules} disabled={isSavingFullRules} className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl text-xs uppercase tracking-widest transition-colors active:scale-95 flex items-center justify-center gap-2">
+                            {isSavingFullRules ? "Se salvează..." : <><Save size={16} /> Salvează</>}
                         </button>
                     </div>
                 </div>
             )}
 
-            {/* --- MODAL: TUTORIAL GOOGLE MAPS --- */}
+            {/* --- MODAL: TUTORIAL GOOGLE MAPS FĂRĂ IMAGINI --- */}
             {showMapsTutorial && (
                 <div className="absolute inset-0 bg-slate-950 z-50 p-6 flex flex-col animate-in slide-in-from-bottom-8 duration-300">
                     <div className="flex items-center justify-between mb-6 shrink-0">
                         <h3 className="text-sm font-black text-emerald-500 uppercase tracking-widest">Ghid Google Maps</h3>
-                        <button onClick={() => setShowMapsTutorial(false)} className="p-2 bg-slate-900 rounded-full text-slate-400 hover:text-white transition-colors">
-                            <X size={18} />
-                        </button>
+                        <button onClick={() => setShowMapsTutorial(false)} className="p-2 bg-slate-900 rounded-full text-slate-400 hover:text-white transition-colors"><X size={18} /></button>
                     </div>
 
                     <div className="flex-1 overflow-y-auto space-y-4 pr-1 no-scrollbar pb-10">
-                        <p className="text-xs text-slate-400 mb-4 leading-relaxed">Urmează acești pași pentru a adăuga o locație exactă din Google Maps.</p>
+                        <p className="text-xs text-slate-400 mb-4 leading-relaxed">Pentru a direcționa turiștii corect, ai nevoie de link-ul oficial al locației.</p>
 
-                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800">
-                            <h4 className="text-[11px] font-bold text-white uppercase mb-2">Pasul 1</h4>
-                            <p className="text-xs text-slate-400">Caută locația dorită în aplicația Google Maps.</p>
-                            <div className="w-full h-24 bg-slate-950 border border-slate-800 rounded-lg mt-3 flex items-center justify-center text-slate-600 text-[10px] uppercase font-bold">[ Imagine Căutare ]</div>
+                        <div className="bg-slate-900 p-5 rounded-xl border border-slate-800 flex items-start gap-3">
+                            <div className="bg-slate-800 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0 mt-0.5">1</div>
+                            <div>
+                                <h4 className="text-xs font-bold text-white uppercase mb-1">Caută locația</h4>
+                                <p className="text-xs text-slate-400 leading-relaxed">Deschide aplicația Google Maps pe telefonul tău și caută restaurantul sau producătorul dorit.</p>
+                            </div>
                         </div>
 
-                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800">
-                            <h4 className="text-[11px] font-bold text-white uppercase mb-2">Pasul 2</h4>
-                            <p className="text-xs text-slate-400">Apasă pe butonul <span className="text-white font-bold">„Distribuie” (Share)</span>.</p>
-                            <div className="w-full h-24 bg-slate-950 border border-slate-800 rounded-lg mt-3 flex items-center justify-center text-slate-600 text-[10px] uppercase font-bold">[ Imagine Buton Share ]</div>
+                        <div className="bg-slate-900 p-5 rounded-xl border border-slate-800 flex items-start gap-3">
+                            <div className="bg-slate-800 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0 mt-0.5">2</div>
+                            <div>
+                                <h4 className="text-xs font-bold text-white uppercase mb-1">Apasă Distribuie</h4>
+                                <p className="text-xs text-slate-400 leading-relaxed mb-2">În pagina locației, apasă pe butonul <strong className="text-white">„Distribuie” (Share)</strong>.</p>
+                                <div className="bg-slate-800/50 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-700/50 text-xs text-slate-300">
+                                    <Share2 size={14} className="text-blue-400" /> Distribuie
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800">
-                            <h4 className="text-[11px] font-bold text-white uppercase mb-2">Pasul 3</h4>
-                            <p className="text-xs text-slate-400">Alege opțiunea <span className="text-blue-400 font-bold">„Copiază linkul”</span>.</p>
-                            <div className="w-full h-24 bg-slate-950 border border-slate-800 rounded-lg mt-3 flex items-center justify-center text-slate-600 text-[10px] uppercase font-bold">[ Imagine Copiere ]</div>
+                        <div className="bg-slate-900 p-5 rounded-xl border border-slate-800 flex items-start gap-3">
+                            <div className="bg-slate-800 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0 mt-0.5">3</div>
+                            <div>
+                                <h4 className="text-xs font-bold text-white uppercase mb-1">Copiază Linkul</h4>
+                                <p className="text-xs text-slate-400 leading-relaxed mb-2">Din lista de opțiuni, alege <strong className="text-white">„Copiază linkul”</strong>, apoi întoarce-te aici și lipește-l în formular.</p>
+                                <div className="bg-slate-800/50 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-700/50 text-xs text-slate-300">
+                                    <Copy size={14} className="text-emerald-400" /> Copiază linkul
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div className="pt-4 mt-auto shrink-0 border-t border-slate-800">
                         <button onClick={() => setShowMapsTutorial(false)} className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-4 rounded-xl text-xs uppercase tracking-widest transition-colors active:scale-95">
-                            Am înțeles, revin
+                            Am înțeles, revin la formular
                         </button>
                     </div>
                 </div>
