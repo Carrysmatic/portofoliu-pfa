@@ -3,10 +3,14 @@ import { create } from 'zustand';
 export interface Location {
     id: string;
     name: string;
-    category: 'RESTAURANT' | 'PRODUCATOR';
+    category: string; // Am scos restrictia doar la RESTAURANT/PRODUCATOR
+    subcategory?: string;
+    description?: string;
+    distance?: string;
+    duration?: string;
     note: string;
     mapsLink: string;
-    isSponsored?: boolean; // <-- NOU: Adăugat pentru a rezolva eroarea Vercel
+    isSponsored?: boolean;
 }
 
 export interface QuickRule {
