@@ -136,13 +136,24 @@ function ScanContent() {
         }
         setLoading(false);
     };
+    const handleGoBack = () => {
+        if (screen === "SERVICII" && selectedService) {
+            setSelectedService(null);
+        } else if (screen === "REGULI" && showFullRules) {
+            setShowFullRules(false);
+        } else if (screen === "RECOMANDARI" && recCategory) {
+            setRecCategory(null);
+        } else {
+            setScreen("HOME");
+        }
+    };
 
     // --- RANDARE ---
     if (isInitializing) return <div className="fixed inset-0 flex items-center justify-center bg-white font-bold text-slate-400 uppercase tracking-widest text-xs">Se încarcă...</div>;
     if (authError) return <div className="fixed inset-0 flex items-center justify-center bg-white p-10 text-center font-bold text-red-500 uppercase text-xs">{authError}</div>;
 
     return (
-        <div className="fixed inset-0 bg-white overflow-y-auto pb-10 font-sans text-slate-900">
+        <div className="w-full min-h-screen bg-slate-50 pb-28 font-sans text-slate-900 flex flex-col relative">
 
             {/* SCREEN: HOME */}
             {screen === "HOME" && (
@@ -316,7 +327,19 @@ function ScanContent() {
                     <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-4">Personalul a fost notificat și va interveni curând.</p>
                 </div>
             )}
-        </div>
+            {/* BUTON DE BACK FIXAT JOS (Apare doar dacă nu suntem pe HOME sau SUCCESS) */}
+            {screen !== "HOME" && screen !== "SUCCESS" && (
+                <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-md border-t border-slate-200 z-50">
+                    <button
+                        onClick={handleGoBack}
+                        className="w-full py-4 bg-slate-200 text-slate-700 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow-sm active:scale-[0.98] transition-all"
+                    >
+                        <ArrowLeft className="w-5 h-5" />
+                        Înapoi
+                    </button>
+                </div>
+            )}
+        </div> // Acesta este div-ul de închidere al întregii pagini
     );
 }
 
