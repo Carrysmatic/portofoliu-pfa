@@ -6,6 +6,7 @@ export interface Location {
     category: 'RESTAURANT' | 'PRODUCATOR';
     note: string;
     mapsLink: string;
+    isSponsored?: boolean; // <-- NOU: Adăugat pentru a rezolva eroarea Vercel
 }
 
 export interface QuickRule {
