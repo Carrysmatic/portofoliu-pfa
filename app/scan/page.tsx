@@ -11,8 +11,6 @@ import {
     Clock, Activity, BookOpen, Compass
 } from "lucide-react";
 
-
-
 function ScanContent() {
     const searchParams = useSearchParams();
     const {
@@ -62,6 +60,8 @@ function ScanContent() {
 
             const { data: propertyData } = await supabase.from('properties').select('*').eq('id', roomData.property_id).single();
             const { data: rulesData } = await supabase.from('house_rules').select('*').eq('property_id', roomData.property_id).eq('is_quick_info', true).order('order_index', { ascending: true }).limit(12);
+
+            // PRELUARE COMPLETA DIN MASTER_PLACES
             const { data: recData } = await supabase
                 .from('recommendations')
                 .select(`
@@ -79,6 +79,8 @@ function ScanContent() {
                     roomNumber: roomData.room_number,
                     wifiPassword: propertyData.wifi_password || "Nespecificat",
                     quickRules: rulesData?.map(r => ({ id: r.id, title: r.title, value: r.short_desc || '', iconName: r.icon_name || 'Info' })) || [],
+
+                    // MAPAREA NOUĂ CU TOATE CÂMPURILE PENTRU ISTORIC ȘI TRASEE
                     locations: recData?.map(r => ({
                         id: r.id,
                         name: (r.master_places as any)?.name || "Locație",
@@ -330,15 +332,16 @@ function ScanContent() {
                             {locations.filter(t => t.category === activeLevel1 && t.subcategory === activeLevel2).map(item => (
                                 <div key={item.id} className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm flex flex-col gap-3">
                                     <h3 className="font-black text-lg text-slate-900 leading-tight">{item.name}</h3>
+
                                     {(item.distance || item.duration) && (
                                         <div className="flex items-center gap-4 text-xs font-bold text-slate-500 uppercase tracking-widest">
                                             {item.distance && <span className="flex items-center gap-1"><MapPin className="w-3 h-3" /> {item.distance}</span>}
                                             {item.duration && <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {item.duration}</span>}
                                         </div>
                                     )}
+
                                     <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-xl">{item.description}</p>
 
-                                    {/* Am adăugat și butonul de Maps pentru trasee dacă au link */}
                                     {item.mapsLink && item.mapsLink !== "#" && (
                                         <a href={item.mapsLink} target="_blank" className="mt-2 w-full py-3 bg-white border border-slate-200 text-slate-700 rounded-xl font-bold flex items-center justify-center gap-2 text-xs uppercase tracking-widest active:scale-[0.98] transition-all">
                                             <MapPin className="w-4 h-4 text-emerald-500" /> Deschide Harta
@@ -369,7 +372,6 @@ function ScanContent() {
                         </div>
                     )}
 
-                    {/* Randarea listei de articole */}
                     {activeLevel1 && !activeReadingItem && (
                         <div className="space-y-3 mt-4">
                             {locations.filter(i => i.category === activeLevel1).map(item => (
@@ -377,7 +379,7 @@ function ScanContent() {
                                     key={item.id}
                                     onClick={() => {
                                         setActiveReadingItem(item);
-                                        logAnalytics('VIEW_STORY', { title: item.name }); // am schimbat item.title cu item.name
+                                        logAnalytics('VIEW_STORY', { title: item.name });
                                     }}
                                     className="w-full p-5 bg-white border border-amber-100 rounded-xl text-left shadow-sm active:scale-[0.98] transition-all flex items-center justify-between"
                                 >
@@ -394,32 +396,22 @@ function ScanContent() {
                         </div>
                     )}
 
-                    {/* Mai jos, in Pergament, schimba activeReadingItem.title cu .name si .content cu .description */}
-                    {/* ... */}
-                    <h1 className="font-serif text-3xl font-bold mb-8 text-[#4A3B2A] leading-tight">{activeReadingItem.name}</h1>
-
-                    <div className="font-serif text-base leading-loose text-left px-2 opacity-90 mb-12">
-                        <p>{activeReadingItem.description}</p>
-                    </div>
-
                     {/* PERGAMENT */}
                     {activeReadingItem && (
                         <div className="fixed inset-0 bg-[#FDFBF7] z-[100] overflow-y-auto p-6 pt-20 flex flex-col items-center border-8 border-double border-[#E5D7B7] text-[#5C4D3C] animate-in fade-in duration-500">
 
-                            {/* Buton Top-Left Ajustat (Acum stă peste navbar și e mai vizibil) */}
                             <button onClick={handleGoBack} className="absolute top-8 left-6 bg-[#F2E8CF] px-4 py-2 rounded-xl text-[#8B7355] flex items-center gap-2 font-bold text-xs uppercase tracking-widest active:scale-95 transition-transform shadow-sm">
                                 <ArrowLeft className="w-4 h-4" /> Înapoi
                             </button>
 
                             <div className="mt-10 max-w-md w-full text-center pb-12">
                                 <BookOpen className="w-10 h-10 text-[#D4C3A3] mx-auto mb-6 opacity-50" />
-                                <h1 className="font-serif text-3xl font-bold mb-8 text-[#4A3B2A] leading-tight">{activeReadingItem.title}</h1>
+                                <h1 className="font-serif text-3xl font-bold mb-8 text-[#4A3B2A] leading-tight">{activeReadingItem.name}</h1>
 
                                 <div className="font-serif text-base leading-loose text-left px-2 opacity-90 mb-12">
-                                    <p>{activeReadingItem.content}</p>
+                                    <p>{activeReadingItem.description}</p>
                                 </div>
 
-                                {/* BUTON NOU DE BACK LA FINALUL TEXTULUI */}
                                 <button
                                     onClick={handleGoBack}
                                     className="w-full py-4 border-2 border-[#D4C3A3] bg-[#FDFBF7] text-[#8B7355] rounded-xl font-bold flex items-center justify-center gap-2 text-sm active:bg-[#F2E8CF] transition-all"
@@ -444,7 +436,7 @@ function ScanContent() {
                 </div>
             )}
 
-            {/* BUTON DE BACK FIXAT JOS (Apare doar dacă nu suntem pe HOME, SUCCESS sau PERGAMENT) */}
+            {/* BUTON DE BACK FIXAT JOS */}
             {screen !== "HOME" && screen !== "SUCCESS" && !activeReadingItem && (
                 <div className="fixed bottom-0 left-0 right-0 p-4 bg-slate-50/90 backdrop-blur-md border-t border-slate-200 z-50">
                     <button onClick={handleGoBack} className="w-full py-4 bg-white text-slate-700 rounded-xl font-bold border border-slate-200 flex items-center justify-center gap-2 text-sm shadow-sm active:scale-[0.98] transition-all">
@@ -498,7 +490,10 @@ function DynamicIcon({ name }: { name: string }) {
 
 export default function TouristView() {
     return (
-        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-slate-50 font-bold text-slate-400">INIȚIALIZARE...</div>}>
+        <Suspense fallback={<div
+            className="min-h-screen flex items-center justify-center bg-slate-50 font-bold text-slate-400">
+            INIȚIALIZARE...
+        </div>}>
             <ScanContent />
         </Suspense>
     );
