@@ -28,14 +28,14 @@ export default function MarketingPage() {
 
             <div className="flex flex-col sm:flex-row items-center gap-4 mt-6 justify-center lg:justify-start">
               <Link
-                href="/projects"
+                href="/proiecte/Infohub"
                 className="group w-full sm:w-auto px-8 py-4 bg-brand-primary hover:bg-emerald-400 text-slate-950 font-bold rounded-xl transition-all transform hover:scale-105 shadow-[0_10px_20px_rgba(16,185,129,0.2)] flex items-center justify-center gap-2"
               >
                 TESTEAZĂ DEMO-UL LIVE
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                href="/solutions"
+                href="/solutii"
                 className="w-full sm:w-auto px-8 py-4 bg-slate-900/50 hover:bg-slate-800 text-white font-semibold rounded-xl transition-all border border-slate-800 text-center"
               >
                 Vezi mai multe soluții
